@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>service_edu</module>
+        <module>service_oss</module>
     </modules>
 
     <dependencies>
@@ -95,6 +96,28 @@
             <version>4.12</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+                <!--下面的注释了吧，我mybats的${xxxx}的表达式，编译后就会被设置成其他值-->
+                <!--<filtering>true</filtering>-->
+            </resource>
+
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

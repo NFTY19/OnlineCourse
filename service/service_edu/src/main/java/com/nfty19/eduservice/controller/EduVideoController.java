@@ -2,9 +2,11 @@ package com.nfty19.eduservice.controller;
 
 
 import com.nfty19.commonutils.R;
+import com.nfty19.eduservice.client.VodClient;
 import com.nfty19.eduservice.entity.EduVideo;
 import com.nfty19.eduservice.service.EduVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -21,7 +23,10 @@ import org.springframework.web.bind.annotation.*;
 public class EduVideoController {
 
     @Autowired
-    EduVideoService videoService;
+    private EduVideoService videoService;
+
+    @Autowired
+    private VodClient vodClient;
 
     @PostMapping("addVideo")
     public R addVideo(@RequestBody EduVideo video) {
@@ -31,6 +36,17 @@ public class EduVideoController {
 
     @DeleteMapping("{id}")
     public R deleteById(@PathVariable String id) {
+        //根据小节id获取视频id，调用方法实现视频删除
+        EduVideo eduVideo = videoService.getById(id);
+        String videoSourceId = eduVideo.getVideoSourceId();
+        //判断小节里面是否有视频id
+        if(!StringUtils.isEmpty(videoSourceId)) {
+            //根据视频id，远程调用实现视频删除
+            R result = vodClient.removeAlyVideo(videoSourceId);
+            if(result.getCode() == 20001) {
+                return R.error();
+            }
+        }
         videoService.removeById(id);
         return R.ok();
     }

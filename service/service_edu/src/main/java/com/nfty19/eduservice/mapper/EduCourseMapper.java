@@ -2,6 +2,7 @@ package com.nfty19.eduservice.mapper;
 
 import com.nfty19.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.nfty19.eduservice.entity.frontVo.CourseWebVo;
 import com.nfty19.eduservice.entity.vo.CoursePublishVo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,4 +17,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface EduCourseMapper extends BaseMapper<EduCourse> {
     public CoursePublishVo getPublishCourseInfo(String courseId);
+
+    CourseWebVo getBaseCourseInfo(String courseId);
 }

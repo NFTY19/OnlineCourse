@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.atguigu.eduservice.mapper")
+@MapperScan("com.nfty19.eduservice.mapper")
 public class EduConfig {
     /**
      * 逻辑删除插件
